@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/web/mantenimientos/listadoProductos.jsp</file>
-            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/src/java/com/empresa/dao/ProductosDAOImpl.java</file>
-            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/web/mantenimientos/listadoUsuarios.jsp</file>
+            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/src/java/com/empresa/controlador/controladorPrincipal.java</file>
+            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/web/opciones.html</file>
+            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/web/entorno.html</file>
+            <file>file:/home/gonzalo/tecsup/DAW/labs/lab6/WebPractica02/web/titulo.html</file>
         </group>
     </open-files>
 </project-private>

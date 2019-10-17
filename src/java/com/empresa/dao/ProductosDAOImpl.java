@@ -9,6 +9,7 @@ import com.empresa.modelo.Conexion;
 import com.empresa.modelo.Productos;
 import com.empresa.modelo.Usuarios;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -111,7 +112,37 @@ public class ProductosDAOImpl implements IProductosDAO {
 
     @Override
     public boolean eliminar(String[] datos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+  Conexion co=new Conexion();
+        boolean borrar=false;
+        Statement stm=null;
+        Connection con = null;
+        String sql = "DELETE FROM p_productos WHERE cod_producto in ( ";
+        borrar=true;
+        for (int xc=0; xc< datos.length; xc++){
+            if (borrar){
+                sql += "?";
+            }else{
+                sql += ",?";
+            }borrar = false;
+        }sql += ")";
+        try{
+            con =co.Conectar();
+            PreparedStatement ps=con.prepareStatement(sql);
+            for (int xc=0; xc < datos.length; xc++)
+                ps.setString(xc + 1,datos[xc]);
+            ps.execute();
+            borrar = true;
+            ps.close();
+            con.close();
+        }catch (Exception e){
+            System.out.println("Error: Clase ProductoDAOImpl, "+"metodo eliminar");
+            e.printStackTrace();
+        }
+        return borrar;
+
+
+
     }
 
     @Override
@@ -176,5 +207,41 @@ public class ProductosDAOImpl implements IProductosDAO {
         return producto;
 
     }
+
+    @Override
+    public List<Productos> buscarProductos(String nombre) {
+        Connection co =null;
+        Statement stm= null;
+        ResultSet rs=null;
+        String sql="SELECT * FROM p_productos WHERE nombre_producto LIKE'%" + nombre + "%'";
+        List<Productos> listaProductos= new ArrayList<Productos>();
+
+        try {            
+                Conexion con = new Conexion();
+                co=con.Conectar();
+                stm=co.createStatement();
+                rs=stm.executeQuery(sql);
+                while (rs.next()) {
+                        Productos alumno=new Productos();
+                        alumno.setCod_producto(rs.getInt(1));
+                        alumno.setPrecio_producto(rs.getString(2));
+                        alumno.setStock_producto(rs.getString(3));
+                        alumno.setEstado_producto(rs.getString(4));
+                     
+                        listaProductos.add(alumno);
+                }
+                stm.close();
+                rs.close();
+                co.close();
+        } catch (SQLException e) {
+                System.out.println("Error:Clase ProductosDaoImpl,"
+                        + "método buscarProductos");
+        }
+        return listaProductos;
+    }
+    
+
+
+    
 
 }

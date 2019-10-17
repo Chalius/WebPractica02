@@ -108,36 +108,34 @@ public class UsuariosDAOImpl implements IUsuariosDAO {
 
     @Override
     public boolean eliminar(String[] datos) {
-        Conexion co = new Conexion();
-        boolean borrar = false;
-        Statement stm = null;
+       Conexion co=new Conexion();
+        boolean borrar=false;
+        Statement stm=null;
         Connection con = null;
         String sql = "DELETE FROM p_usuarios WHERE cod_usuario in ( ";
-        borrar = true;
-        for (int xc = 0; xc < datos.length; xc++) {
-            if (borrar) {
+        borrar=true;
+        for (int xc=0; xc< datos.length; xc++){
+            if (borrar){
                 sql += "?";
-            } else {
+            }else{
                 sql += ",?";
-            }
-            borrar = false;
-        }
-        sql += ")";
-        try {
-            con = co.Conectar();
-            PreparedStatement ps = con.prepareStatement(sql);
-            for (int xc = 0; xc < datos.length; xc++) {
-                ps.setString(xc + 1, datos[xc]);
-            }
+            }borrar = false;
+        }sql += ")";
+        try{
+            con =co.Conectar();
+            PreparedStatement ps=con.prepareStatement(sql);
+            for (int xc=0; xc < datos.length; xc++)
+                ps.setString(xc + 1,datos[xc]);
             ps.execute();
             borrar = true;
             ps.close();
             con.close();
-        } catch (Exception e) {
-            System.out.println("Error: Clase UsuarioDAOImpl, " + "metodo eliminar");
+        }catch (Exception e){
+            System.out.println("Error: Clase UsuarioDAOImpl, "+"metodo eliminar");
             e.printStackTrace();
         }
         return borrar;
+
     }
 
     @Override

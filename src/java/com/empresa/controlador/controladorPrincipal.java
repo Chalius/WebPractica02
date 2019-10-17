@@ -5,6 +5,8 @@
  */
 package com.empresa.controlador;
 
+import com.empresa.dao.ComprasDAOImpl;
+import com.empresa.dao.IComprasDAO;
 import com.empresa.dao.IProductosDAO;
 import com.empresa.modelo.cBaseDatos;
 import java.io.IOException;
@@ -168,6 +170,13 @@ public class controladorPrincipal extends HttpServlet {
 
                 } else if (request.getParameter("boton").compareTo("Eliminar Registros") == 0) {
                     // aquí código para eliminar
+                    String[] datos = request.getParameterValues("xcod");
+                    IUsuariosDAO dao = new UsuariosDAOImpl();
+                    dao.eliminar(datos);
+                    request.getRequestDispatcher("/controladorPrincipal?accion=listadoUsuarios").forward(
+                       request,response );
+
+                    
                 }
             } 
             //
@@ -197,6 +206,14 @@ public class controladorPrincipal extends HttpServlet {
 
                 } else if (request.getParameter("boton").compareTo("Eliminar Registros") == 0) {
                     // aquí código para eliminar
+                    String[] datos = request.getParameterValues("xcod");
+                    IProductosDAO dao = new ProductosDAOImpl();
+                    dao.eliminar(datos);
+                    request.getRequestDispatcher("/controladorPrincipal?accion=listadoProductos").forward(
+                       request,response );
+
+                    
+                    
                 }
             } 
            
@@ -240,9 +257,30 @@ public class controladorPrincipal extends HttpServlet {
 
             // FIN PRODUCTOS                                      |
             //_____________________________________________________
+
+            //_____________________________________________________
+            // HACER COMPRAS                                      |
+            else if(accion.compareTo("compraMostrarUsuarios")==0){
+                if(request.getParameter("modo").compareTo("Lista")==0){
+                    List<Usuarios> arrUsuarios = new ArrayList<Usuarios>();
+                    String strUsuario= " ";
+                    IComprasDAO dao = new ComprasDAOImpl();
+                    arrUsuarios = dao.buscarUsuarios(strUsuario);
+                    request.setAttribute("arrUsuarios",arrUsuarios);
+                    request.getRequestDispatcher("/mantenimientos/compraMostrarUsuarios.jsp").forward(request, response);
+                }else if(request.getParameter("boton").compareTo("Buscar")==0){
+                    List<Usuarios> arrUsuarios = new ArrayList<Usuarios>();
+                    String strUsuario = request.getParameter("xusu");
+                    IComprasDAO dao = new ComprasDAOImpl();
+                    arrUsuarios = dao.buscarUsuarios(strUsuario);
+                    request.setAttribute("arrUsuarios",arrUsuarios);
+                    request.setAttribute("nombre_usuario",strUsuario);
+                    request.getRequestDispatcher("/mantenimientos/compraMostrarUsuarios.jsp").forward(request, response);
+                }
+            }
             
-            
-            
+                
+                
             
             // TODO añadir diferentes urls para otras paginas
             

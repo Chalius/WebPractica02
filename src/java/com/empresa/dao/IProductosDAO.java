@@ -20,4 +20,5 @@ public interface IProductosDAO {
     public boolean eliminar(String[] datos);
     public Productos buscar(int codigo);
     public Productos buscarPorNombre(String nombre);
-}
+    public List<Productos> buscarProductos(String nombre);
+ }
